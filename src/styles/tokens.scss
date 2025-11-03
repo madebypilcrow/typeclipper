@@ -1,0 +1,18 @@
+$space: 8px;
+$radius: 6px;
+$bg: #ffffff;
+$fg: #111827;
+
+:root {
+  --space: #{$space};
+  --radius: #{$radius};
+  --bg: #{$bg};
+  --fg: #{$fg};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111827;
+    --fg: #f3f4f6;
+  }
+}
