@@ -1,0 +1,29 @@
+@use './tokens' as *;
+
+/* Normalize or reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: 100%;
+  line-height: var(--lh-150);
+  color: var(--gray20);
+  background-color: var(--gray95);
+}
+
+/* Global typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-110);
+  margin: 0;
+}
+
+p { margin: 0 0 var(--space-100); }
+
+/* Utilities or layout helpers if needed */
+.hidden { display: none !important; }
