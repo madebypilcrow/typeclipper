@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import GlyphTile from "@/components/GlyphTile";      // default export
 import type { Glyph } from "@/types/glyph";          // type-only import
 import glyphsData from "@/data/glyphs.json";         // JSON import

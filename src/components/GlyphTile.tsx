@@ -1,5 +1,5 @@
 // src/components/GlyphTile.tsx
-import React, { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { Glyph } from "@/types/glyph";
 import { LONG_PRESS_MS } from "@/utils/constants"; // define as 450 in constants
 
