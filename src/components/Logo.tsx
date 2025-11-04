@@ -7,11 +7,11 @@ interface LogoProps extends React.HTMLAttributes<HTMLImageElement> {
 
 export default function Logo({
   label = "Typeclipper",
-  src = "/assets/typeclipper-logo.svg",
+  src = "./assets/typeclipper-logo.svg",
   className,
   ...rest
 }: LogoProps) {
-  const wrapperClass = ["inline-block", "relative", className]
+  const wrapperClass = ["pcw-logo", className]
     .filter(Boolean)
     .join(" ");
 
@@ -21,7 +21,7 @@ export default function Logo({
         src={src}
         alt=""
         aria-hidden="true"
-        className="block h-auto w-auto"
+        className="pcw-logo__image"
         {...rest}
       />
       <span className="sr-only">{label}</span>

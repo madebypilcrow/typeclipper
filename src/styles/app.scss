@@ -1,9 +1,0 @@
-@use './tokens';
-
-html, body { margin: 0; }
-
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font: 16px/1.45 Inter, system-ui, sans-serif;
-}
