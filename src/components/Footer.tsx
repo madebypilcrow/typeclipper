@@ -15,7 +15,7 @@ export default function Footer() {
           >
             Pilcrow
           </a>
-          . Cobbled together with React. Garnished with STIX Two & IBM Plex Sans. This webapp does not track you. Thanks for stopping by.
+          . Cobbled together with React. Garnished with STIX Two & IBM Plex Sans. This app does not track you. Thanks for stopping by.
         </p>
       </div>
     </footer>

@@ -1,5 +1,7 @@
-import Logo from "../components/Logo";
-import Footer from "../components/Footer";
+// src/pages/StartPage.tsx
+import Logo from "@/components/Logo";
+import Footer from "@/components/Footer";
+import GlyphGrid from "@/components/GlyphGrid";
 
 export default function StartPage() {
   return (
@@ -8,7 +10,9 @@ export default function StartPage() {
         <Logo />
       </header>
 
-      <main />
+      <main>
+        <GlyphGrid />
+      </main>
 
       <Footer />
     </>
