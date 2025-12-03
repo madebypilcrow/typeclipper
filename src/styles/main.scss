@@ -10,9 +10,21 @@ html, body {
   padding: 0;
   font-family: var(--font-sans);
   font-size: 100%;
+  font-weight: 400;
+  font-variation-settings: "wdth" 75;
   line-height: var(--lh-150);
-  color: var(--gray20);
-  background-color: var(--gray95);
+  color: var(--gray-20);
+  background-color: var(--gray-90);
+}
+
+.section {
+  padding: 1.5rem 1.25rem;
+  width: 100%;
+}
+
+.section-wrapper {
+  width: 100%;
+  max-width: 67rem;
 }
 
 /* Global typography */
@@ -42,7 +54,7 @@ p { margin: 0 0 var(--space-100); }
 
 /* TEMPORARY */
 
-.pcw-logo {
+.logo img {
   width: 100%;
   max-width: 10rem;
 }

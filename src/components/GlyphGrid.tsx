@@ -1,48 +1,72 @@
+// src/components/GlyphGrid.tsx
 import { useMemo } from "react";
-import GlyphTile from "@/components/GlyphTile";      // default export
-import type { Glyph } from "@/types/glyph";          // type-only import
-import glyphsData from "@/data/glyphs.json";         // JSON import
+import GlyphTile from "@/components/GlyphTile";
+import type { Glyph } from "@/types/glyph";
+import glyphsData from "@/data/glyphs.json";
+import { copyToClipboard } from "@/utils/copyToClipboard";
+import "@/styles/glyphGrid.scss";
 
 type Props = {
-  query?: string;                   // optional text filter
-  category?: string | "All";        // optional category filter
-  onCopy?: (g: Glyph) => void;
-  onShowDetails?: (g: Glyph) => void;
-  onToggleFavorite?: (g: Glyph) => void;
+  query?: string;
+  category?: string | "All";
   className?: string;
 };
 
 export default function GlyphGrid({
   query = "",
   category = "All",
-  onCopy,
-  onShowDetails,
-  onToggleFavorite,
-  className,
+  className = "",
 }: Props) {
   const items = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const base = (glyphsData as Glyph[]).filter(g =>
+    const base = (glyphsData as Glyph[]).filter((g) =>
       category === "All" ? true : g.category === category
     );
     if (!q) return base;
-    return base.filter(g => {
-      const hay = `${g.symbol} ${g.name.toLowerCase()} ${g.unicode.toLowerCase()} ${g.html.toLowerCase()}`;
+    return base.filter((g) => {
+      const hay = `${g.symbol} ${g.name} ${g.html} ${g.unicode}`.toLowerCase();
       return hay.includes(q);
     });
   }, [query, category]);
 
+  const handleCopy = async (glyph: Glyph) => {
+    try {
+      await copyToClipboard(glyph.symbol);
+      console.log("copied", glyph.symbol);
+    } catch (err) {
+      console.error("copy failed", err);
+    }
+  };
+
+  const handleShowDetails = (glyph: Glyph) => {
+    console.log("details", glyph);
+    // TODO: open modal/bottom sheet
+  };
+
+  const handleToggleFavorite = (glyph: Glyph) => {
+    console.log("favorite", glyph);
+    // TODO: update favorites state
+  };
+
+  // Screen title
+  const title = category === "All" ? "All Characters" : category;
+
   return (
-    <div role="grid" className={className}>
-      {items.map(g => (
-        <GlyphTile
-          key={g.unicode}
-          glyph={g}
-          onCopy={onCopy ?? (() => {})}
-          onShowDetails={onShowDetails ?? (() => {})}
-          onToggleFavorite={onToggleFavorite ?? (() => {})}
-        />
-      ))}
-    </div>
+    <section className="section">
+      <div className="section-wrapper">
+        <h1 className="screen-title">{title}</h1>
+        <div className={`glyph-grid ${className ?? ""}`}>
+          {items.map((glyph) => (
+            <GlyphTile
+              key={glyph.unicode}
+              glyph={glyph}
+              onCopy={handleCopy}
+              onShowDetails={handleShowDetails}
+              onToggleFavorite={handleToggleFavorite}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

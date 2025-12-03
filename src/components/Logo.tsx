@@ -11,7 +11,7 @@ export default function Logo({
   className,
   ...rest
 }: LogoProps) {
-  const wrapperClass = ["pcw-logo", className]
+  const wrapperClass = ["logo", className]
     .filter(Boolean)
     .join(" ");
 
@@ -21,7 +21,7 @@ export default function Logo({
         src={src}
         alt=""
         aria-hidden="true"
-        className="pcw-logo__image"
+        className="logo__image"
         {...rest}
       />
       <span className="sr-only">{label}</span>

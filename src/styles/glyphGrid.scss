@@ -1,0 +1,11 @@
+@use "tokens" as *;
+
+.glyph-grid {
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    gap: $sp-100;
+}
+
+.screen-title {
+    color: var(--gray-10);
+}
