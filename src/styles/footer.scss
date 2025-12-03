@@ -1,1 +1,48 @@
 @use "tokens" as *;
+
+.app-footer {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $sp-25;
+        border-top: 0.5px solid var(--border-regular);
+        padding-top: $sp-150;
+        padding-bottom: 6rem;
+    }
+
+    &____logo-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding-block: 1rem;
+    }
+
+    &__logo {
+        width: 9rem;
+
+        .app-logo__image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__illo {
+        pre {
+            font-size: $fs-75;
+            white-space: pre;
+            display: inline-block;
+            //-webkit-font-smoothing: antialiased;
+            //-moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+    &__message, &__meta {
+        font-size: $fs-50;
+        text-align: center;
+        text-wrap: balance;
+        max-width: 35rem;
+        margin: 0 auto $sp-50;
+    }
+}

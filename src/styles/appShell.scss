@@ -1,0 +1,44 @@
+@use "tokens" as *;
+
+// base layout: mobile
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1 1 auto;
+  // reserve space for fixed bottom header/nav on mobile
+  padding-bottom: 5rem; // match header/nav height
+}
+
+/* Desktop+: turn header into vertical sidebar */
+@media screen and (min-width: $bp-lg) {
+  .app-shell {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr); // sidebar width + content
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      "header main"
+      "header footer";
+  }
+
+  .app-header {
+    grid-area: header;
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    height: 100vh;
+    align-self: start;
+  }
+
+  .app-main {
+    grid-area: main;
+    padding-bottom: 0;
+  }
+
+  .app-footer {
+    grid-area: footer;
+  }
+}

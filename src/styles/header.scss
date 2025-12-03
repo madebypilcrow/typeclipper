@@ -1,17 +1,46 @@
 @use "tokens" as *;
 
 .app-header {
-    
+    background-color: var(--bg-nav);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    inset-inline: 0;
+    inset-block-end: 0;
+    z-index: 20;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -3rem;
+        pointer-events: none;
+        height: 3rem;
+        width: 100%;
+        background: linear-gradient(to bottom, color-mix(in srgb, var(--bg-surface) 0%, transparent 100%) 0%, color-mix(in srgb, var(--bg-surface) 90%, transparent 10%) 100%);
+        z-index: 9998;
+    }
+
+    @media screen and (min-width: $bp-lg) {
+        position: relative;
+    }
+
+    &__logo-link {
+       display: none;
+
+        @media screen and (min-width: $bp-lg) {
+            display: inline-flex;
+        }
+    }
 }
 
 .app-header.section {
-    padding-top: $sp-50;
-    padding-bottom: $sp-50;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .logo {
     img {
         width: 100%;
-        max-width: 10rem;
+        max-width: 9rem;
     }
 }

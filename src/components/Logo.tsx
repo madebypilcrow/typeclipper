@@ -1,30 +1,27 @@
 import React from "react";
 
 interface LogoProps extends React.HTMLAttributes<HTMLImageElement> {
-  label?: string;
   src?: string;
 }
 
 export default function Logo({
-  label = "Typeclipper",
-  src = "./assets/typeclipper-logo.svg",
+  src,
   className,
   ...rest
 }: LogoProps) {
-  const wrapperClass = ["logo", className]
-    .filter(Boolean)
-    .join(" ");
+  const wrapperClass = ["logo", className].filter(Boolean).join(" ");
+
+  const resolvedSrc =
+    src ?? `${import.meta.env.BASE_URL}assets/typeclipper-logo.svg`;
 
   return (
-    <div className={wrapperClass}>
+    <div className={wrapperClass} aria-hidden="true">
       <img
-        src={src}
+        src={resolvedSrc}
         alt=""
-        aria-hidden="true"
         className="logo__image"
         {...rest}
       />
-      <span className="sr-only">{label}</span>
     </div>
   );
 }

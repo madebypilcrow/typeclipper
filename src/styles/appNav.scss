@@ -1,0 +1,51 @@
+@use "tokens" as *;
+
+.app-nav {
+    &__list {
+        list-style-type: none;
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: $sp-75;
+        width: 100%;
+        max-width: 18rem;
+
+        @media screen and (min-width: $bp-sm) {
+            gap: $sp-150;
+        }
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    &__button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: $sp-50;
+        gap: $sp-25;
+        min-height: 5rem;
+        color: var(--text-muted);
+        transition: all 140ms;
+
+        &--active {
+            color: var(--text-strong);
+        }
+    }
+
+    &__icon {
+        display: flex;
+    }
+
+    &__label {
+        font-size: 0.813rem;
+        font-weight: $fw-medium;
+    }
+}

@@ -96,6 +96,7 @@
   --space-200: 2rem;
   --space-225: 2.25rem;
   --space-250: 2.5rem;
+  --space-300: 3rem;
 }
 
 /* Light theme (default) */
@@ -121,7 +122,7 @@
   );
 
   /* borders / separators (gray-50 workhorses) */
-  --border-subtle: color-mix(in srgb, var(--gray-50) 15%, transparent);
+  --border-subtle: color-mix(in srgb, var(--gray-50) 25%, transparent);
   --border-regular: color-mix(in srgb, var(--gray-50) 30%, transparent);
   --border-strong: color-mix(in srgb, var(--gray-50) 35%, transparent);
   --divider-subtle: color-mix(in srgb, var(--gray-50) 10%, transparent);
@@ -239,6 +240,7 @@ $sp-150: var(--space-150);
 $sp-200: var(--space-200);
 $sp-225: var(--space-225);
 $sp-250: var(--space-250);
+$sp-300: var(--space-300);
 
 // Font sizes
 $fs-50: 0.688rem;

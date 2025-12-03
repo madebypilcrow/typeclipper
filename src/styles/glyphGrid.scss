@@ -6,6 +6,13 @@
         flex-direction: column;
         gap: $sp-125;
     }
+
+    &.section {
+        @media screen and (min-width: $bp-lg) {
+            padding-left: $sp-300;
+            padding-right: $sp-300;
+        }
+    }
 }
 
 .glyph-grid {
@@ -21,7 +28,7 @@
         grid-template-columns: repeat(5,1fr);
     }
 
-        @media screen and (min-width: $bp-ph) {
+    @media screen and (min-width: $bp-ph) {
         grid-template-columns: repeat(6,1fr);
     }
 
@@ -31,7 +38,7 @@
     }
 
     @media screen and (min-width: $bp-lg) {
-        grid-template-columns: repeat(8,1fr);
+        grid-template-columns: repeat(7,1fr);
     }
 
     @media screen and (min-width: $bp-xl) {

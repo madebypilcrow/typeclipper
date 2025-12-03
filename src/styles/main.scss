@@ -24,6 +24,9 @@ html, body {
 .section {
   padding: 1.5rem 1.25rem;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .section-wrapper {
@@ -40,6 +43,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p { margin: 0 0 var(--space-100); }
+
+a { text-decoration: none; }
 
 /* Utilities or layout helpers if needed */
 .hidden { display: none !important; }
