@@ -48,25 +48,20 @@ export default function GlyphGrid({
     // TODO: update favorites state
   };
 
-  // Screen title
-  const title = category === "All" ? "All Characters" : category;
-
   return (
-    <section className="section">
-      <div className="section-wrapper">
-        <h1 className="screen-title">{title}</h1>
-        <div className={`glyph-grid ${className ?? ""}`}>
-          {items.map((glyph) => (
-            <GlyphTile
-              key={glyph.unicode}
-              glyph={glyph}
-              onCopy={handleCopy}
-              onShowDetails={handleShowDetails}
-              onToggleFavorite={handleToggleFavorite}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div
+      className={`glyph-grid ${className ?? ""}`}
+      role="list"
+    >
+      {items.map((glyph) => (
+        <GlyphTile
+          key={glyph.unicode}
+          glyph={glyph}
+          onCopy={handleCopy}
+          onShowDetails={handleShowDetails}
+          onToggleFavorite={handleToggleFavorite}
+        />
+      ))}
+    </div>
   );
 }

@@ -19,7 +19,7 @@
 
 :root {
   /* colors */
-  --white: hsl(40, 12%, 100%);
+  --white: hsl(36, 0%, 100%);
 
   --gray-95: hsl(36, 10%, 95%);
   --gray-90: hsl(36, 10%, 90%);
@@ -42,17 +42,21 @@
   --gray-10: hsl(36, 10%, 10%);
   --gray-06: hsl(36, 10%, 6%);
 
+  --black: hsl(36, 0%, 0%);
+
   --blue-25: hsl(232, 30%, 25%);
   --blue-30: hsl(232, 30%, 30%);
   --blue-35: hsl(232, 30%, 35%);
   --blue-40: hsl(232, 30%, 40%);
   --blue-45: hsl(232, 30%, 45%);
+  --blue-50: hsl(232, 30%, 50%);
 
-  --green-35: hsl(153, 39%, 40%);
-  --green-30: hsl(153, 39%, 35%);
-  --green-25: hsl(153, 39%, 30%);
-  --green-40: hsl(153, 39%, 45%);
-  --green-45: hsl(153, 39%, 50%);
+  --green-25: hsl(153, 39%, 25%);
+  --green-30: hsl(153, 39%, 30%);
+  --green-35: hsl(153, 39%, 35%);
+  --green-40: hsl(153, 39%, 40%);
+  --green-45: hsl(153, 39%, 45%);
+  --green-50: hsl(153, 39%, 50%);
 
   --yellow-55: hsl(42, 65%, 55%);
 
@@ -94,7 +98,137 @@
   --space-250: 2.5rem;
 }
 
-// spacing (SCSS variables referencing CSS custom properties)
+/* Light theme (default) */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* app structure */
+  --bg-app: var(--gray-90);             /* main background */
+  --bg-chrome: var(--gray-85);          /* bottom sheet / modal */
+  --bg-surface: var(--gray-90);         /* for non-tile surfaces */
+  --bg-surface-subtle: var(--gray-95);
+  --bg-nav: var(--gray-95);             /* bottom nav */
+
+  /* tile gradient tokens */
+  --surface-base: var(--gray-95);
+  --surface-tint: var(--gray-50);
+
+  --surface-style-tile: radial-gradient(
+    circle,
+    var(--surface-base) 0%,
+    color-mix(in srgb, var(--surface-tint) 50%, transparent)
+  );
+
+  /* borders / separators (gray-50 workhorses) */
+  --border-subtle: color-mix(in srgb, var(--gray-50) 15%, transparent);
+  --border-regular: color-mix(in srgb, var(--gray-50) 30%, transparent);
+  --border-strong: color-mix(in srgb, var(--gray-50) 35%, transparent);
+  --divider-subtle: color-mix(in srgb, var(--gray-50) 10%, transparent);
+
+  /* text */
+  --text-strong: var(--gray-06);        /* headings */
+  --text-main: var(--gray-40);          /* body */
+  --text-muted: var(--gray-50);         /* labels, meta */
+  --text-subtle: var(--gray-65);        /* disabled */
+  --text-inverse: var(--white);         /* on dark or accent */
+
+  /* glyph-specific */
+  --glyph-symbol: var(--gray-10);
+  --glyph-name: var(--gray-50);
+  --glyph-actions: var(--gray-50);      /* ⋮ and ☆ icons when inactive */
+
+  /* primary / category filter */
+  --accent: var(--blue-45);
+  --accent-hover: var(--blue-50);
+  --accent-text: var(--white);
+  --accent-soft-bg: color-mix(in srgb, var(--blue-45) 14%, transparent);
+  --accent-soft-border: color-mix(in srgb, var(--blue-45) 40%, transparent);
+
+  /* favorites / state */
+  --favorite-active: var(--yellow-55);
+  --toast-bg: color-mix(in srgb, var(--green-45) 16%, transparent);
+  --toast-border: color-mix(in srgb, var(--green-45) 55%, transparent);
+  --toast-text: var(--green-25);
+
+  /* shadows */
+  --shadow-soft:
+    0 1px 2px color-mix(in srgb, var(--gray-06) 4%, transparent),
+    0 2px 12px color-mix(in srgb, var(--gray-06) 8%, transparent);
+
+  --shadow-lifted:
+    0 1px 3px color-mix(in srgb, var(--gray-06) 6%, transparent),
+    0 4px 16px color-mix(in srgb, var(--gray-06) 12%, transparent);
+
+  //--text-shadow: 1px 2px 1px color-mix(in srgb, var(--gray-50) 5%, transparent);
+
+  /* focus ring */
+  --focus-ring: color-mix(in srgb, var(--blue-45) 60%, transparent);
+}
+
+/*@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --bg-app: var(--gray-10);
+    --bg-chrome: var(--gray-15);
+    --bg-surface: var(--gray-10);
+    --bg-surface-subtle: var(--gray-15);
+    --bg-nav: var(--gray-06);
+
+    --border-subtle: color-mix(in srgb, var(--gray-50) 35%, transparent);
+    --border-strong: color-mix(in srgb, var(--gray-50) 55%, transparent);
+    --divider-subtle: color-mix(in srgb, var(--gray-50) 22%, transparent);
+
+    --text-strong: var(--gray-95);
+    --text-main: var(--gray-90);
+    --text-muted: var(--gray-75);
+    --text-subtle: var(--gray-65);
+    --text-inverse: var(--black);
+
+    --glyph-symbol: var(--white);
+    --glyph-name: var(--gray-75);
+    --glyph-actions: var(--gray-70);
+
+    --accent: var(--blue-35);
+    --accent-hover: var(--blue-30);
+    --accent-text: var(--white);
+    --accent-soft-bg: color-mix(in srgb, var(--blue-35) 26%, transparent);
+    --accent-soft-border: color-mix(in srgb, var(--blue-35) 55%, transparent);
+
+    --favorite-active: var(--yellow-55);
+    --toast-bg: color-mix(in srgb, var(--green-40) 26%, transparent);
+    --toast-border: color-mix(in srgb, var(--green-45) 60%, transparent);
+    --toast-text: var(--green-50);
+
+    --shadow-soft:
+      0 1px 2px color-mix(in srgb, var(--black) 40%, transparent),
+      0 2px 12px color-mix(in srgb, var(--black) 65%, transparent);
+
+    --shadow-lifted:
+      0 1px 3px color-mix(in srgb, var(--black) 45%, transparent),
+      0 4px 16px color-mix(in srgb, var(--black) 70%, transparent);
+
+    --focus-ring: color-mix(in srgb, var(--blue-35) 65%, transparent);
+  }
+}*/
+
+/* Optional explicit dark override */
+:root[data-theme="dark"] {
+  /* same block as above (@extend via a preprocessor) */
+}
+
+// Breakpoints
+
+$bp-xs: 23.5rem; // ~376px small phones
+$bp-sm: 30rem;   // ~480px phones
+$bp-ph: 40rem;   // ~640px phablets / large phones
+$bp-md: 48rem;   // ~768px tablets
+$bp-lg: 64rem;   // ~1024px small laptops
+$bp-xl: 80rem;   // ~1280px desktops
+$bp-2xl: 96rem;  // ~1536px large desktops
+
+// Spacing (SCSS variables referencing CSS custom properties)
 $sp-25: var(--space-25);
 $sp-37: var(--space-37);
 $sp-50: var(--space-50);
@@ -132,4 +266,5 @@ $ls-loose: 0.01em;     // was ls-10
 $ls-loosest: 0.06em;   // was ls-60
 
 // border radius
-$radius-sm: 6px; 
+//$radius-sm: 1px;
+$radius-sm: 6px;

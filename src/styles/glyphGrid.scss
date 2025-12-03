@@ -1,11 +1,44 @@
 @use "tokens" as *;
 
+.glyph-screen {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: $sp-125;
+    }
+}
+
 .glyph-grid {
     display: grid;
-    grid-template-columns: repeat(8,1fr);
-    gap: $sp-100;
+    grid-template-columns: repeat(3,1fr);
+    gap: $sp-75;
+
+    @media screen and (min-width: $bp-xs) {
+        grid-template-columns: repeat(4,1fr);
+    }
+
+    @media screen and (min-width: $bp-sm) {
+        grid-template-columns: repeat(5,1fr);
+    }
+
+        @media screen and (min-width: $bp-ph) {
+        grid-template-columns: repeat(6,1fr);
+    }
+
+    @media screen and (min-width: $bp-md) {
+        grid-template-columns: repeat(7,1fr);
+        gap: $sp-100;
+    }
+
+    @media screen and (min-width: $bp-lg) {
+        grid-template-columns: repeat(8,1fr);
+    }
+
+    @media screen and (min-width: $bp-xl) {
+        grid-template-columns: repeat(8,1fr);
+    }
 }
 
 .screen-title {
-    color: var(--gray-10);
+    color: var(--text-strong);
 }

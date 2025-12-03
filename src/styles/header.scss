@@ -1,0 +1,17 @@
+@use "tokens" as *;
+
+.app-header {
+    
+}
+
+.app-header.section {
+    padding-top: $sp-50;
+    padding-bottom: $sp-50;
+}
+
+.logo {
+    img {
+        width: 100%;
+        max-width: 10rem;
+    }
+}

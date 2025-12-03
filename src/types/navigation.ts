@@ -1,0 +1,1 @@
+export type ViewId = "characters" | "favorites" | "recent";
