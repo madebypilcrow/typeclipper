@@ -41,7 +41,8 @@
         padding: $sp-150 $sp-50 $sp-225;
         position: relative;
         cursor: pointer;
-        border: 0.5px solid var(--border-regular);
+        border: 0;
+        //border: 0.5px solid var(--border-regular);
         border-radius: $radius-sm;
         box-shadow: var(--shadow-soft);
         transition: 

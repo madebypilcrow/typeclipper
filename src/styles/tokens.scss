@@ -93,6 +93,7 @@
   --space-100: 1rem;
   --space-125: 1.25rem;
   --space-150: 1.5rem;
+  --space-175: 1.75rem;
   --space-200: 2rem;
   --space-225: 2.25rem;
   --space-250: 2.5rem;
@@ -154,14 +155,21 @@
 
   /* shadows */
   --shadow-soft:
+    0 0 0 1px color-mix(in srgb, var(--gray-06) 4%, transparent),
     0 1px 2px color-mix(in srgb, var(--gray-06) 4%, transparent),
     0 2px 12px color-mix(in srgb, var(--gray-06) 8%, transparent);
 
   --shadow-lifted:
+    0 0 0 1px color-mix(in srgb, var(--gray-06) 4%, transparent),
     0 1px 3px color-mix(in srgb, var(--gray-06) 6%, transparent),
     0 4px 16px color-mix(in srgb, var(--gray-06) 12%, transparent);
 
-  //--text-shadow: 1px 2px 1px color-mix(in srgb, var(--gray-50) 5%, transparent);
+  --shadow-sidebar:
+    0 1px 2px color-mix(in srgb, var(--gray-06) 4%, transparent),
+    0 2px 12px color-mix(in srgb, var(--gray-06) 8%, transparent);
+  
+  --shadow-inset:
+    inset 0 1px 3px color-mix(in srgb, var(--gray-06) 4%, transparent);
 
   /* focus ring */
   --focus-ring: color-mix(in srgb, var(--blue-45) 60%, transparent);
@@ -237,6 +245,7 @@ $sp-75: var(--space-75);
 $sp-100: var(--space-100);
 $sp-125: var(--space-125);
 $sp-150: var(--space-150);
+$sp-175: var(--space-175);
 $sp-200: var(--space-200);
 $sp-225: var(--space-225);
 $sp-250: var(--space-250);
@@ -270,3 +279,4 @@ $ls-loosest: 0.06em;   // was ls-60
 // border radius
 //$radius-sm: 1px;
 $radius-sm: 6px;
+$radius-rounded: 500px;

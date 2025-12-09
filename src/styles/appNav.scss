@@ -1,6 +1,10 @@
 @use "tokens" as *;
 
 .app-nav {
+    @media screen and (min-width: $bp-lg) {
+        height: 100%;
+    }
+
     &__list {
         list-style-type: none;
         margin: 0 auto;
@@ -16,12 +20,34 @@
         @media screen and (min-width: $bp-sm) {
             gap: $sp-150;
         }
+
+        @media screen and (min-width: $bp-lg) {
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: $sp-25;
+            height: 100%;
+        }
     }
 
     &__item {
         display: flex;
         flex-direction: column;
         flex: 1;
+
+        @media screen and (min-width: $bp-lg) {
+            flex: initial;
+        }
+
+        &--about {
+            display: none; // mobile: no About in bottom bar
+
+            @media screen and (min-width: $bp-lg) {
+                display: flex;
+                margin-top: auto;
+                padding-top: $sp-50;
+                border-top: 0.5px solid var(--border-regular);
+            }
+        }
     }
 
     &__button {
@@ -37,6 +63,23 @@
 
         &--active {
             color: var(--text-strong);
+
+            @media screen and (min-width: $bp-lg) {
+                background: var(--bg-surface);
+            }
+        }
+
+        @media screen and (min-width: $bp-lg) {
+            flex-direction: row;
+            justify-content: flex-start;
+            gap: $sp-50;
+            min-height: $sp-300;
+            border-radius: $radius-rounded;
+            padding: $sp-25 $sp-125 $sp-25 $sp-100;
+
+            &:hover {
+                background: var(--bg-surface);
+            }
         }
     }
 
@@ -47,5 +90,9 @@
     &__label {
         font-size: 0.813rem;
         font-weight: $fw-medium;
+
+        @media screen and (min-width: $bp-lg) {
+            font-size: $fs-100;
+        }
     }
 }

@@ -1,5 +1,5 @@
-// src/pages/GlyphsPage.tsx
 import GlyphGrid from "@/components/GlyphGrid";
+import SearchControls from "@/components/SearchControls";
 
 export default function GlyphsPage() {
   const category: string | "All" = "All"; // placeholder; later this may come from state or URL
@@ -12,14 +12,11 @@ export default function GlyphsPage() {
     >
       <div className="section-wrapper glyph-screen__wrapper">
         <div className="glyph-screen__header">
+          <SearchControls />
           <h1 id="glyphs-title" className="screen-title">
             {title}
           </h1>
-
-          {/* future controls (search, filters) */}
-          {/* e.g. <GlyphSearchBar /> / filter pills, etc. */}
         </div>
-
         <GlyphGrid category={category} />
       </div>
     </section>

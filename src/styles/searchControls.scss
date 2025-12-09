@@ -1,0 +1,194 @@
+@use "tokens" as *;
+
+.search-controls {
+  width: 100%;
+
+  &__inner {
+    display: flex;
+    align-items: stretch;
+    gap: $sp-100;
+  }
+}
+
+/* ──────────────────────────────
+   Root container
+   ────────────────────────────── */
+
+.search-input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: $sp-50;
+
+  padding: $sp-75;
+  border-radius: $radius-sm;
+  box-shadow: var(--shadow-inset);
+
+  background-color: color-mix(in srgb, var(--surface-tint) 20%, transparent);
+
+  cursor: text;
+  position: relative;
+
+  transition:
+    background-color 120ms ease-out,
+    box-shadow 120ms ease-out;
+}
+
+/* Hover: slightly stronger outline */
+.search-input:hover {
+  //box-shadow: inset 0 0 0 1px var(--border-regular);
+}
+
+/* Focus: crisper background + strong outline */
+.search-input:focus-within {
+  //background-color: var(--bg-surface);
+  /*box-shadow:
+    inset 0 0 0 1px var(--border-strong),
+    0 0 0 1px var(--focus-ring);*/
+}
+
+/* When there is text in the field, retain the outlined look
+   (blurred but with value) */
+.search-input:has(.search-input__field:not(:placeholder-shown)) {
+  //box-shadow: inset 0 0 0 1px var(--border-regular);
+}
+
+/* Optional: different cursor while loading */
+.search-input--loading {
+  cursor: progress;
+}
+
+/* ──────────────────────────────
+   Icon / spinner / clear button
+   ────────────────────────────── */
+
+.search-input__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* base icon size and color */
+.search-input__icon-glyph,
+.search-input__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* clear button on the right */
+.search-input__clear {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $sp-200;
+  height: $sp-200;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--text-muted);
+  cursor: pointer;
+
+  transition:
+    color 120ms ease-out;
+}
+
+.search-input__clear svg {
+  width: $sp-125;
+  height: $sp-125;
+}
+
+.search-input__clear:hover {
+  color: var(--text-strong);
+}
+
+/* ──────────────────────────────
+   Input field
+   ────────────────────────────── */
+
+.search-input__field {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  border: 0;
+  padding: 0;
+  background: transparent;
+
+  font-family: var(--font-sans);
+  font-size: var(--fs-200);
+  line-height: var(--lh-120);
+  color: var(--text-strong);
+
+  -webkit-appearance: none; // Safari
+  appearance: none;
+}
+
+.search-input__field::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.search-input__field:focus {
+  outline: none;
+}
+
+.search-input__field::-webkit-search-decoration,
+.search-input__field::-webkit-search-cancel-button,
+.search-input__field::-webkit-search-results-button,
+.search-input__field::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* ──────────────────────────────
+   Spinner “tube” animation
+   ────────────────────────────── */
+
+/* SVG root: class="search-spinner search-input__spinner" */
+.search-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+
+  animation: search-spinner-rotate 720ms linear infinite;
+  transform-origin: center;
+}
+
+.search-spinner__track,
+.search-spinner__tube {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.search-spinner__track {
+  stroke: var(--border-subtle);
+}
+
+.search-spinner__tube {
+  stroke: currentColor;
+  stroke-dasharray: 26 50;
+  stroke-dashoffset: 0;
+  animation: search-spinner-dash 900ms ease-in-out infinite;
+}
+
+@keyframes search-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes search-spinner-dash {
+  0% {
+    stroke-dashoffset: 76;
+  }
+  50% {
+    stroke-dashoffset: 38;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

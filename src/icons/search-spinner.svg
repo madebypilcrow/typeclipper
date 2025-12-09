@@ -1,0 +1,21 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  class="search-spinner"
+  aria-hidden="true"
+>
+  <!-- outer track -->
+  <circle
+    class="search-spinner__track"
+    cx="12"
+    cy="12"
+    r="8"
+  />
+  <!-- animated tube -->
+  <circle
+    class="search-spinner__tube"
+    cx="12"
+    cy="12"
+    r="8"
+  />
+</svg>

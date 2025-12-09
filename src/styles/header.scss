@@ -18,10 +18,16 @@
         width: 100%;
         background: linear-gradient(to bottom, color-mix(in srgb, var(--bg-surface) 0%, transparent 100%) 0%, color-mix(in srgb, var(--bg-surface) 90%, transparent 10%) 100%);
         z-index: 9998;
+
+        @media screen and (min-width: $bp-lg) {
+            content: none;
+        }
     }
 
     @media screen and (min-width: $bp-lg) {
         position: relative;
+        border-right: 0.5px solid var(--border-subtle);
+        box-shadow: var(--shadow-sidebar);
     }
 
     &__logo-link {
@@ -31,11 +37,36 @@
             display: inline-flex;
         }
     }
+
+    &__wrapper {
+        @media screen and (min-width: $bp-lg) {
+            display: flex;
+            flex-direction: column;
+            gap: $sp-200;
+            height: 100%;
+        }
+    }
+
+    .logo {
+        @media screen and (min-width: $bp-lg) {
+            margin: 0 auto;
+            max-width: 7.875rem;
+            width: 100%;
+
+            img {
+                max-width: unset;
+            }
+        }
+    }
 }
 
 .app-header.section {
     padding-top: 0;
     padding-bottom: 0;
+
+    @media screen and (min-width: $bp-lg) {
+        padding: $sp-250 $sp-50;
+    }
 }
 
 .logo {

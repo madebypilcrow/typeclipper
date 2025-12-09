@@ -9,6 +9,10 @@
         border-top: 0.5px solid var(--border-regular);
         padding-top: $sp-150;
         padding-bottom: 6rem;
+
+        @media screen and (min-width: $bp-lg) {
+            padding-bottom: $sp-25;
+        }
     }
 
     &____logo-link {

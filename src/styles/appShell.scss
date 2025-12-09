@@ -17,7 +17,7 @@
 @media screen and (min-width: $bp-lg) {
   .app-shell {
     display: grid;
-    grid-template-columns: 11rem minmax(0, 1fr); // sidebar width + content
+    grid-template-columns: 11rem minmax(0, 1fr);
     grid-template-rows: 1fr auto;
     grid-template-areas:
       "header main"
@@ -31,6 +31,8 @@
     bottom: auto;
     height: 100vh;
     align-self: start;
+    width: 100%;
+    max-width: 11rem;
   }
 
   .app-main {
