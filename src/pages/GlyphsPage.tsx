@@ -2,7 +2,7 @@ import GlyphGrid from "@/components/GlyphGrid";
 import SearchControls from "@/components/SearchControls";
 
 export default function GlyphsPage() {
-  const category: string | "All" = "All"; // placeholder; later this may come from state or URL
+  const category: string | "All" = "All";
   const title = category === "All" ? "All Characters" : category;
 
   return (

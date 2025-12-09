@@ -1,26 +1,17 @@
 import SearchField from "@/components/SearchField";
+import { useSearch } from "@/context/SearchContext";
 import "@/styles/searchControls.scss";
 
-type Props = {
-  query: string;
-  isLoading?: boolean;
-  onChange: (value: string) => void;
-  onClear: () => void;
-};
+export default function SearchControls() {
+  const { query, setQuery } = useSearch();
 
-export default function SearchControls({
-  query,
-  isLoading = false,
-  onChange,
-  onClear,
-}: Props) {
   return (
     <div className="search-controls">
       <SearchField
         value={query}
-        isLoading={isLoading}
-        onChange={onChange}
-        onClear={onClear}
+        onChange={setQuery}
+        onClear={() => setQuery("")}
+        isLoading={false}
       />
     </div>
   );

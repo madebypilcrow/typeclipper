@@ -1,5 +1,3 @@
-import SearchControls from "@/components/SearchControls";
-
 export default function AboutPage() {
   return (
     <section className="section" aria-label="Favorites">
