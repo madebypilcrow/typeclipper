@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppShell from "@/components/AppShell";
 import GlyphsPage from "@/pages/GlyphsPage";
 import FavoritesPage from "@/pages/FavoritesPage";
-import RecentPage from "@/pages/RecentPage";
+import RecentPage from "@/pages/RecentsPage";
 import AboutPage from "@/pages/AboutPage";
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "");

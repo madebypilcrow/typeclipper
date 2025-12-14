@@ -29,6 +29,10 @@
                 color: var(--text-strong);
             }
         }
+
+        .glyph-tile__details, .glyph-tile__favorite {
+            transform: translateY(-1px);
+        }
     }
 
     &__main {
@@ -42,7 +46,6 @@
         position: relative;
         cursor: pointer;
         border: 0;
-        //border: 0.5px solid var(--border-regular);
         border-radius: $radius-sm;
         box-shadow: var(--shadow-soft);
         transition: 
@@ -63,6 +66,7 @@
             opacity: 0.25;
             filter: brightness(1); 
             transition: filter 140ms ease;
+            z-index: 1;
         }
     }
 
@@ -108,7 +112,14 @@
         z-index: 2;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 120ms ease-out;
+        transition: 
+            transform 140ms ease,
+            color 140ms ease-out, 
+            opacity 140ms ease-out;
+
+        &:hover {
+            color: var(--text-strong);
+        }
     }
 
     // Mobile: details always visible; favorite stays hidden
@@ -120,6 +131,11 @@
     // Positioning for each
     &__favorite {
         left: 0;
+
+        &.is-favorite {
+            color: var(--favorite-active);
+            opacity: 1;
+        }
     }
 
     &__details {

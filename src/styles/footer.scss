@@ -13,13 +13,18 @@
         @media screen and (min-width: $bp-lg) {
             padding-bottom: $sp-25;
         }
+
+        @media screen and (min-width: $bp-sm) {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            align-items: flex-start;
+            gap: $sp-100;
+        }
     }
 
-    &____logo-link {
+    &__logo-link {
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding-block: 1rem;
+        align-self: flex-start;
     }
 
     &__logo {
@@ -42,11 +47,22 @@
         }
     }
 
-    &__message, &__meta {
-        font-size: $fs-50;
-        text-align: center;
+    &__message {
+        font-size: $fs-75;
         text-wrap: balance;
-        max-width: 35rem;
-        margin: 0 auto $sp-50;
+        width: 100%;
+    }
+
+    &__colophon {
+        font-size: $fs-50;
+        text-wrap: balance;
+        width: 100%;
+
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 0.2em;
+        }
     }
 }

@@ -58,7 +58,7 @@
   --green-45: hsl(153, 39%, 45%);
   --green-50: hsl(153, 39%, 50%);
 
-  --yellow-55: hsl(42, 65%, 55%);
+  --yellow: hsl(42, 65%, 50%);
 
   /* typography */
   --font-serif: "STIX Two Text", "Times New Roman", Times, serif;
@@ -148,7 +148,7 @@
   --accent-soft-border: color-mix(in srgb, var(--blue-45) 40%, transparent);
 
   /* favorites / state */
-  --favorite-active: var(--yellow-55);
+  --favorite-active: var(--yellow);
   --toast-bg: color-mix(in srgb, var(--green-45) 16%, transparent);
   --toast-border: color-mix(in srgb, var(--green-45) 55%, transparent);
   --toast-text: var(--green-25);
@@ -205,7 +205,7 @@
     --accent-soft-bg: color-mix(in srgb, var(--blue-35) 26%, transparent);
     --accent-soft-border: color-mix(in srgb, var(--blue-35) 55%, transparent);
 
-    --favorite-active: var(--yellow-55);
+    --favorite-active: var(--yellow);
     --toast-bg: color-mix(in srgb, var(--green-40) 26%, transparent);
     --toast-border: color-mix(in srgb, var(--green-45) 60%, transparent);
     --toast-text: var(--green-50);

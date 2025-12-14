@@ -13,20 +13,20 @@ export default function Footer() {
           <Logo className="app-footer__logo" />
         </a>
 
-        <div className="app-footer__illo">
+        {/*<div className="app-footer__illo">
           <pre>{String.raw`~\---{ < ¶ > }---/~`}</pre>
-        </div>
-
-        <p className="app-footer__message">
-          You’ve reached the bottom of the drawer. Nothing left rattling around. If something *should* be in here and isn’t, let the late‑shift typesetter know at dan [at] madebypilcrow [dot] com.
-        </p>
+        </div>*/}
 
         <div className="app-footer__meta">
-          <span className="app-footer__copyright">
+          <p className="app-footer__message">
+            You’ve reached the bottom of the drawer. Nothing left rattling around. If something’s wrong or missing let the late&#8209;shift typesetter know at dan [at] madebypilcrow [dot] com.
+          </p>
+
+          {/*<span className="app-footer__copyright">
             © {new Date().getFullYear()} Typeclipper.
-          </span>
-          <span className="app-footer__colophon">
-            &nbsp;Built by{" "}
+          </span>*/}
+          <p className="app-footer__colophon">
+            Made by{" "}
             <a
               href="https://madebypilcrow.com"
               target="_blank"
@@ -34,9 +34,8 @@ export default function Footer() {
             >
               Pilcrow
             </a>
-            . Cobbled together with React. Garnished with STIX Two & IBM Plex Sans.
-            This app does not track you. Thanks for stopping by.
-          </span>
+            , typeset in STIX Two & IBM Plex Sans. This app does not track you.
+          </p>
         </div>
       </div>
     </footer>
