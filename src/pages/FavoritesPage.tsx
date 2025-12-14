@@ -1,24 +1,49 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import GlyphGrid from "@/components/GlyphGrid";
 import UndoBar from "@/components/UndoBar";
 import type { Glyph } from "@/types/glyph";
 import glyphsData from "@/data/glyphs.json";
-import { clearFavorites, readFavoriteUnicodes, writeFavoriteUnicodes } from "@/utils/favorites";
+import {
+  clearFavorites,
+  readFavoriteUnicodes,
+  writeFavoriteUnicodes,
+} from "@/utils/favorites";
 
 export default function FavoritesPage() {
+  const [favUnicodes, setFavUnicodes] = useState<string[]>(() =>
+    readFavoriteUnicodes()
+  );
   const [undoSnapshot, setUndoSnapshot] = useState<string[] | null>(null);
 
-  const favorites = useMemo(() => {
-    const set = new Set(readFavoriteUnicodes());
-    return (glyphsData as Glyph[]).filter((g) => set.has(g.unicode));
-  }, [undoSnapshot]); // simple way to refresh when undo state changes; your existing event listeners also help
+  useEffect(() => {
+    const onChange = () => setFavUnicodes(readFavoriteUnicodes());
+    window.addEventListener(
+      "typeclipper:favorites-changed",
+      onChange as EventListener
+    );
+    window.addEventListener("storage", onChange);
+    return () => {
+      window.removeEventListener(
+        "typeclipper:favorites-changed",
+        onChange as EventListener
+      );
+      window.removeEventListener("storage", onChange);
+    };
+  }, []);
 
-  const onClear = () => {
+  const favorites = useMemo(() => {
+    const map = new Map((glyphsData as Glyph[]).map((g) => [g.unicode, g]));
+    return favUnicodes
+      .map((u) => map.get(u))
+      .filter(Boolean) as Glyph[];
+  }, [favUnicodes]);
+
+  const handleClear = () => {
     const snapshot = clearFavorites();
     setUndoSnapshot(snapshot.length ? snapshot : null);
   };
 
-  const onUndo = () => {
+  const handleUndo = () => {
     if (!undoSnapshot) return;
     writeFavoriteUnicodes(undoSnapshot);
     setUndoSnapshot(null);
@@ -30,16 +55,24 @@ export default function FavoritesPage() {
         {undoSnapshot && (
           <UndoBar
             message="Favorites cleared."
-            onUndo={onUndo}
+            onUndo={handleUndo}
             onDismiss={() => setUndoSnapshot(null)}
           />
         )}
 
-        <button type="button" onClick={onClear} disabled={favorites.length === 0}>
+        <button
+          type="button"
+          onClick={handleClear}
+          disabled={favorites.length === 0}
+        >
           Clear favorites
         </button>
 
-        {favorites.length === 0 ? <p>No favorites yet.</p> : <GlyphGrid items={favorites} category="All" />}
+        {favorites.length === 0 ? (
+          <p>No favorites yet.</p>
+        ) : (
+          <GlyphGrid items={favorites} category="All" />
+        )}
       </div>
     </section>
   );
