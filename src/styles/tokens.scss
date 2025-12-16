@@ -126,7 +126,7 @@
   );
 
   /* borders / separators (gray-50 workhorses) */
-  --border-subtle: color-mix(in srgb, var(--gray-50) 25%, transparent);
+  --border-subtle: color-mix(in srgb, var(--gray-50) 20%, transparent);
   --border-regular: color-mix(in srgb, var(--gray-50) 30%, transparent);
   --border-strong: color-mix(in srgb, var(--gray-50) 35%, transparent);
   --divider-subtle: color-mix(in srgb, var(--gray-50) 10%, transparent);

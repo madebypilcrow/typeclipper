@@ -11,12 +11,20 @@ import {
   readFavoriteUnicodes,
   writeFavoriteUnicodes,
 } from "@/utils/favorites";
+import "@/styles/emptyState.scss";
+
+const EMPTY_EXIT_MS = 180;
 
 export default function FavoritesPage() {
   const [favUnicodes, setFavUnicodes] = useState<string[]>(() =>
     readFavoriteUnicodes()
   );
   const [undoSnapshot, setUndoSnapshot] = useState<string[] | null>(null);
+
+  // empty-state animation state
+  const [showEmpty, setShowEmpty] = useState(() => readFavoriteUnicodes().length === 0);
+  const [emptyEntering, setEmptyEntering] = useState(false);
+  const [emptyLeaving, setEmptyLeaving] = useState(false);
 
   useEffect(() => {
     const onChange = () => setFavUnicodes(readFavoriteUnicodes());
@@ -41,14 +49,43 @@ export default function FavoritesPage() {
 
   const hasFavorites = favorites.length > 0;
 
+  // drive empty-state mount/unmount with animation
+  useEffect(() => {
+    if (!hasFavorites) {
+      setShowEmpty(true);
+      setEmptyLeaving(false);
+      setEmptyEntering(true);
+
+      const raf = window.requestAnimationFrame(() => setEmptyEntering(false));
+      return () => window.cancelAnimationFrame(raf);
+    }
+
+    // has favorites → animate empty-state out, then unmount
+    if (showEmpty) {
+      setEmptyLeaving(true);
+      const t = window.setTimeout(() => {
+        setShowEmpty(false);
+        setEmptyLeaving(false);
+      }, EMPTY_EXIT_MS);
+      return () => window.clearTimeout(t);
+    }
+  }, [hasFavorites, showEmpty]);
+
   const handleClear = () => {
     const snapshot = clearFavorites();
+
+    // Update UI immediately (in case the utility doesn't dispatch the event)
+    setFavUnicodes([]);
+
     setUndoSnapshot(snapshot.length ? snapshot : null);
   };
 
   const handleUndo = () => {
     if (!undoSnapshot) return;
     writeFavoriteUnicodes(undoSnapshot);
+  };
+
+  const handleDismiss = () => {
     setUndoSnapshot(null);
   };
 
@@ -68,7 +105,8 @@ export default function FavoritesPage() {
               <UndoBar
                 message="Favorites cleared."
                 onUndo={handleUndo}
-                onDismiss={() => setUndoSnapshot(null)}
+                onDismiss={handleDismiss}
+                durationMs={5000}
               />
             ) : hasFavorites ? (
               <button
@@ -82,8 +120,18 @@ export default function FavoritesPage() {
           </div>
         </div>
 
-        {!hasFavorites ? (
-          <div className="empty-state" role="status" aria-live="polite">
+        {showEmpty ? (
+          <div
+            className={[
+              "empty-state",
+              emptyEntering ? "is-entering" : "",
+              emptyLeaving ? "is-leaving" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            role="status"
+            aria-live="polite"
+          >
             <div className="empty-state__mark" aria-hidden="true">
               ⋆⁺₊⋆ ☾⋆⁺₊⋆
             </div>

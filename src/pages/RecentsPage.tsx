@@ -1,6 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+
 import GlyphGrid from "@/components/GlyphGrid";
 import UndoBar from "@/components/UndoBar";
+import Button from "@/components/Button";
 import type { Glyph } from "@/types/glyph";
 import glyphsData from "@/data/glyphs.json";
 import {
@@ -15,43 +18,96 @@ export default function RecentsPage() {
   );
   const [undoSnapshot, setUndoSnapshot] = useState<string[] | null>(null);
 
+  useEffect(() => {
+    const onChange = () => setRecentUnicodes(readRecentUnicodes());
+    window.addEventListener(
+      "typeclipper:recents-changed",
+      onChange as EventListener
+    );
+    window.addEventListener("storage", onChange);
+    return () => {
+      window.removeEventListener(
+        "typeclipper:recents-changed",
+        onChange as EventListener
+      );
+      window.removeEventListener("storage", onChange);
+    };
+  }, []);
+
   const recents = useMemo(() => {
     const map = new Map((glyphsData as Glyph[]).map((g) => [g.unicode, g]));
-    return recentUnicodes
-      .map((u) => map.get(u))
-      .filter(Boolean) as Glyph[];
+    return recentUnicodes.map((u) => map.get(u)).filter(Boolean) as Glyph[];
   }, [recentUnicodes]);
+
+  const hasRecents = recents.length > 0;
 
   const handleClear = () => {
     const snapshot = clearRecents();
+
+    // immediate UI update (don’t rely on event dispatch timing)
+    setRecentUnicodes([]);
+
     setUndoSnapshot(snapshot.length ? snapshot : null);
-    setRecentUnicodes([]); // immediate UI update without relying on event
   };
 
   const handleUndo = () => {
     if (!undoSnapshot) return;
     writeRecentUnicodes(undoSnapshot);
-    setRecentUnicodes(undoSnapshot); // immediate UI restore, still stable order
+
+    // immediate UI restore (keeps stable order)
+    setRecentUnicodes(undoSnapshot);
+    // no setUndoSnapshot(null) here — UndoBar calls onDismiss after onUndo
+  };
+
+  const handleDismiss = () => {
     setUndoSnapshot(null);
   };
 
   return (
-    <section className="section screen recents-screen" aria-label="Recents">
-      <div className="section-wrapper">
-        {undoSnapshot && (
-          <UndoBar
-            message="Recents cleared."
-            onUndo={handleUndo}
-            onDismiss={() => setUndoSnapshot(null)}
-          />
-        )}
+    <section
+      className="section screen recents-screen"
+      aria-labelledby="recents-title"
+    >
+      <div className="section-wrapper screen__wrapper">
+        <div className="screen__header screen__header--has-action">
+          <h1 id="recents-title" className="screen__title">
+            Recents
+          </h1>
 
-        <button type="button" onClick={handleClear} disabled={recents.length === 0}>
-          Clear recents
-        </button>
+          <div className="screen__action-slot" aria-live="polite">
+            {undoSnapshot ? (
+              <UndoBar
+                message="Recents cleared."
+                onUndo={handleUndo}
+                onDismiss={handleDismiss}
+                durationMs={5000}
+              />
+            ) : hasRecents ? (
+              <button
+                type="button"
+                className="screen__action"
+                onClick={handleClear}
+              >
+                Clear All
+              </button>
+            ) : null}
+          </div>
+        </div>
 
-        {recents.length === 0 ? (
-          <p>No recents yet. Copy a glyph to add it here.</p>
+        {!hasRecents ? (
+          <div className="empty-state" role="status" aria-live="polite">
+            <div className="empty-state__mark" aria-hidden="true">
+              (¬‿¬)
+            </div>
+
+            <p className="empty-state__text">
+              No characters copied yet. Copy any character to see it here.
+            </p>
+
+            <Button as={Link} to="/">
+              Explore characters
+            </Button>
+          </div>
         ) : (
           <GlyphGrid items={recents} category="All" />
         )}

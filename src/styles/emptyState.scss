@@ -1,0 +1,25 @@
+@use "tokens" as *;
+//@use "@/styles/motion" as *;
+
+// motion behavior
+//@include gentle-swap("empty-state");
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-100;
+  border: 1px solid var(--border-subtle);
+  border-radius: $radius-sm;
+  padding: $sp-150 $sp-150 $sp-175;
+  text-align: center;
+  text-wrap: balance;
+  font-size: $fs-100;
+
+  &__mark {
+    font-size: $fs-300;
+  }
+
+  .button {
+    align-self: center;
+  }
+}

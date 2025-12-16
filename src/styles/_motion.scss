@@ -1,0 +1,19 @@
+@mixin gentle-swap(
+  $name,
+  $duration: 180ms,
+  $distance: 4px,
+  $easing: ease
+) {
+  .#{$name} {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity $duration $easing, transform $duration $easing;
+  }
+
+  .#{$name}.is-entering,
+  .#{$name}.is-closing,
+  .#{$name}.is-leaving {
+    opacity: 0;
+    transform: translateY(-#{$distance});
+  }
+}

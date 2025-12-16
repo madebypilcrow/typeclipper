@@ -1,2 +1,65 @@
 @use "tokens" as *;
+@use "@/styles/motion" as *;
 
+// motion behavior
+@include gentle-swap("undo-bar");
+
+.undo-bar {
+  font-size: $fs-75;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__message {
+    margin-right: $sp-50;
+    display: inline-flex;
+    position: relative;
+    top: -0.063rem;
+  }
+
+  &__undo,
+  &__dismiss {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background-color: var(--bg-chrome);
+    color: var(--text-main);
+    height: 1.875rem;
+    border: 0;
+    font-family: var(--font-sans);
+    font-size: $fs-50;
+    font-weight: $fw-medium;
+    text-decoration: none;
+    line-height: $lh-110;
+    letter-spacing: $ls-loose;
+    transition: background-color 140ms ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--bg-chrome-harsh);
+    }
+  }
+
+  &__undo {
+    padding: $sp-50 $sp-50 $sp-50 $sp-75;
+    border-radius: $radius-rounded 0 0 $radius-rounded;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0.25rem;
+      display: block;
+      height: calc(100% - 0.5rem);
+      width: 1px;
+      background: var(--border-regular);
+    }
+  }
+
+  &__dismiss {
+    padding: $sp-50 $sp-50 $sp-50 $sp-25;
+    border-radius: 0 $radius-rounded $radius-rounded 0;
+  }
+}

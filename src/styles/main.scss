@@ -61,9 +61,10 @@ a { text-decoration: none; }
 
     &--has-action {
       flex-direction: row;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: $sp-100;
+      gap: $sp-50 $sp-100;
     }
   }
 
@@ -78,7 +79,7 @@ a { text-decoration: none; }
     align-self: center;
     background-color: var(--bg-chrome);
     color: var(--text-main);
-    padding: calc($sp-50 + 0.063rem) $sp-75;
+    padding: $sp-50 $sp-75 calc($sp-50 + 0.063rem) $sp-75;
     border-radius: $radius-rounded;
     border: 0;
     font-family: var(--font-sans);
@@ -106,26 +107,6 @@ a { text-decoration: none; }
   &.recents-screen,
   &.about-screen {
     padding-top: 2.45rem;
-  }
-}
-
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  gap: $sp-100;
-  border: 1px solid var(--border-subtle);
-  border-radius: $radius-sm;
-  padding: $sp-150 $sp-150 $sp-175;
-  text-align: center;
-  text-wrap: balance;
-  font-size: $fs-100;
-
-  &__mark {
-    font-size: $fs-300;
-  }
-
-  .button {
-    align-self: center;
   }
 }
 
