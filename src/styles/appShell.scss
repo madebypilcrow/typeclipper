@@ -18,11 +18,11 @@
   .app-shell {
     display: grid;
     grid-template-columns: 11rem minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto;
     grid-template-areas:
+      "banner banner"
       "header main"
-      "header footer"
-      "header banner";
+      "header footer";
   }
 
   .app-banner {
@@ -34,7 +34,8 @@
     position: sticky;
     top: 0;
     bottom: auto;
-    height: 100vh;
+    //height: 100vh;
+    height: calc(100vh - 2.75rem); // to account for the temporary AppBanner
     align-self: start;
     width: 100%;
     max-width: 11rem;
@@ -47,6 +48,5 @@
 
   .app-footer {
     grid-area: footer;
-    align-self: flex-end;
   }
 }
