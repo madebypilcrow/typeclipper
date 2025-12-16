@@ -98,6 +98,8 @@
   --space-225: 2.25rem;
   --space-250: 2.5rem;
   --space-300: 3rem;
+
+  --content-width: 67rem;
 }
 
 /* Light theme (default) */
@@ -108,6 +110,7 @@
   /* app structure */
   --bg-app: var(--gray-90);             /* main background */
   --bg-chrome: var(--gray-85);          /* bottom sheet / modal */
+  --bg-chrome-harsh: var(--gray-80);
   --bg-surface: var(--gray-90);         /* for non-tile surfaces */
   --bg-surface-subtle: var(--gray-95);
   --bg-nav: var(--gray-95);             /* bottom nav */
@@ -141,8 +144,8 @@
   --glyph-actions: var(--gray-50);      /* ⋮ and ☆ icons when inactive */
 
   /* primary / category filter */
-  --accent: var(--blue-45);
-  --accent-hover: var(--blue-50);
+  --accent: var(--blue-50);
+  --accent-hover: var(--blue-45);
   --accent-text: var(--white);
   --accent-soft-bg: color-mix(in srgb, var(--blue-45) 14%, transparent);
   --accent-soft-border: color-mix(in srgb, var(--blue-45) 40%, transparent);

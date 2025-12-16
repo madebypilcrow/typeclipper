@@ -36,7 +36,7 @@ export default function RecentsPage() {
   };
 
   return (
-    <section className="section" aria-label="Recents">
+    <section className="section screen recents-screen" aria-label="Recents">
       <div className="section-wrapper">
         {undoSnapshot && (
           <UndoBar

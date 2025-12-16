@@ -7,13 +7,13 @@ export default function GlyphsPage() {
 
   return (
     <section
-      className="section glyph-screen"
+      className="section screen glyph-screen"
       aria-labelledby="glyphs-title"
     >
-      <div className="section-wrapper glyph-screen__wrapper">
-        <div className="glyph-screen__header">
+      <div className="section-wrapper screen__wrapper">
+        <div className="screen__header">
           <SearchControls />
-          <h1 id="glyphs-title" className="screen-title">
+          <h1 id="glyphs-title" className="screen__title">
             {title}
           </h1>
         </div>

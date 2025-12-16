@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "@/styles/undoBar.scss";
 
 type Props = {
   message: string;

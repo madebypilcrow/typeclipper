@@ -21,19 +21,6 @@ html, body {
   background-color: var(--bg-app);
 }
 
-.section {
-  padding: 1.5rem 1.25rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.section-wrapper {
-  width: 100%;
-  max-width: 67rem;
-}
-
 /* Global typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
@@ -45,6 +32,102 @@ h1, h2, h3, h4, h5, h6 {
 p { margin: 0 0 var(--space-50); }
 
 a { text-decoration: none; }
+
+/* Sections */
+.section {
+  padding: $sp-150 $sp-125;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-wrapper {
+  width: 100%;
+  max-width: var(--content-width);
+}
+
+.screen {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-125;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-175;
+
+    &--has-action {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: $sp-100;
+    }
+  }
+
+  &__title {
+    color: var(--text-strong);
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background-color: var(--bg-chrome);
+    color: var(--text-main);
+    padding: calc($sp-50 + 0.063rem) $sp-75;
+    border-radius: $radius-rounded;
+    border: 0;
+    font-family: var(--font-sans);
+    font-size: $fs-50;
+    font-weight: $fw-medium;
+    text-decoration: none;
+    line-height: $lh-110;
+    letter-spacing: $ls-loose;
+    transition:
+      background-color 140ms ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--bg-chrome-harsh);
+    }
+  }
+
+  &.section {
+    @media screen and (min-width: $bp-lg) {
+      padding: $sp-200 $sp-300 $sp-150;
+    }
+  }
+
+  &.favorites-screen,
+  &.recents-screen,
+  &.about-screen {
+    padding-top: 2.45rem;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-100;
+  border: 1px solid var(--border-subtle);
+  border-radius: $radius-sm;
+  padding: $sp-150 $sp-150 $sp-175;
+  text-align: center;
+  text-wrap: balance;
+  font-size: $fs-100;
+
+  &__mark {
+    font-size: $fs-300;
+  }
+
+  .button {
+    align-self: center;
+  }
+}
 
 /* Utilities or layout helpers if needed */
 .hidden { display: none !important; }
