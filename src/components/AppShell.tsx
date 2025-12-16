@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
+import { useCallback, useState } from "react";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AppBanner from "@/components/AppBanner";
+import Toast from "@/components/Toast";
+import { ToastProvider } from "@/context/Toast";
 import "@/styles/appShell.scss";
 
 type Props = {
@@ -10,16 +13,24 @@ type Props = {
 };
 
 export default function AppShell({ children }: Props) {
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = useCallback((message: string) => {
+    setToast(message);
+  }, []);
+
   return (
     <div className="app-shell">
-      <AppBanner />
-      <Header />
+      <ToastProvider value={{ showToast }}>
+        <AppBanner />
+        <Header />
 
-      <main className="app-main">
-        {children}
-      </main>
+        <main className="app-main">{children}</main>
 
-      <Footer />
+        <Footer />
+      </ToastProvider>
+
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
 }

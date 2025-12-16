@@ -6,6 +6,7 @@ import { copyToClipboard } from "@/utils/copyToClipboard";
 import { useSearch } from "@/context/SearchContext";
 import { readFavoriteUnicodes, toggleFavorite } from "@/utils/favorites";
 import { pushRecent } from "@/utils/recents";
+import { useToast } from "@/context/Toast";
 
 import "@/styles/glyphGrid.scss";
 
@@ -21,6 +22,7 @@ export default function GlyphGrid({
   className = "",
 }: Props) {
   const { query } = useSearch();
+  const { showToast } = useToast();
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -57,9 +59,10 @@ export default function GlyphGrid({
     try {
       await copyToClipboard(glyph.symbol);
       pushRecent(glyph);
-      console.log("copied", glyph.symbol);
+      showToast(`Copied “${glyph.symbol}”`);
     } catch (err) {
       console.error("copy failed", err);
+      showToast("Copy failed");
     }
   };
 
