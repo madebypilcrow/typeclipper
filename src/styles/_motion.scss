@@ -1,7 +1,7 @@
 @mixin gentle-swap(
   $name,
   $duration: 180ms,
-  $distance: 4px,
+  $distance: 0.188rem,
   $easing: ease
 ) {
   .#{$name} {

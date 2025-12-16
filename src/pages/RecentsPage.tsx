@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import GlyphGrid from "@/components/GlyphGrid";
@@ -13,26 +13,11 @@ import {
 } from "@/utils/recents";
 
 export default function RecentsPage() {
+  // snapshot at mount; intentionally NOT reactive
   const [recentUnicodes, setRecentUnicodes] = useState<string[]>(() =>
     readRecentUnicodes()
   );
   const [undoSnapshot, setUndoSnapshot] = useState<string[] | null>(null);
-
-  useEffect(() => {
-    const onChange = () => setRecentUnicodes(readRecentUnicodes());
-    window.addEventListener(
-      "typeclipper:recents-changed",
-      onChange as EventListener
-    );
-    window.addEventListener("storage", onChange);
-    return () => {
-      window.removeEventListener(
-        "typeclipper:recents-changed",
-        onChange as EventListener
-      );
-      window.removeEventListener("storage", onChange);
-    };
-  }, []);
 
   const recents = useMemo(() => {
     const map = new Map((glyphsData as Glyph[]).map((g) => [g.unicode, g]));
@@ -44,7 +29,7 @@ export default function RecentsPage() {
   const handleClear = () => {
     const snapshot = clearRecents();
 
-    // immediate UI update (don’t rely on event dispatch timing)
+    // freeze UI to empty; no live reordering
     setRecentUnicodes([]);
 
     setUndoSnapshot(snapshot.length ? snapshot : null);
@@ -52,11 +37,12 @@ export default function RecentsPage() {
 
   const handleUndo = () => {
     if (!undoSnapshot) return;
+
     writeRecentUnicodes(undoSnapshot);
 
-    // immediate UI restore (keeps stable order)
+    // restore snapshot exactly as it was
     setRecentUnicodes(undoSnapshot);
-    // no setUndoSnapshot(null) here — UndoBar calls onDismiss after onUndo
+    // UndoBar will dismiss itself
   };
 
   const handleDismiss = () => {
