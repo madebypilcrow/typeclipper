@@ -14,24 +14,31 @@ type Props = {
   items?: Glyph[];
   category?: string | "All";
   className?: string;
+
+  // Page-level modal opener (Glyphs/Favorites/Recents)
+  onShowDetails: (g: Glyph) => void;
 };
 
 export default function GlyphGrid({
   items: itemsProp,
   category = "All",
   className = "",
+  onShowDetails,
 }: Props) {
   const { query } = useSearch();
   const { showToast } = useToast();
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase();
-
     const source = (itemsProp ?? (glyphsData as Glyph[])) as Glyph[];
 
     const base = source.filter((g) =>
       category === "All" ? true : g.category === category
     );
+
+    // Only the Glyphs page has search UI; other pages still have SearchProvider,
+    // so we guard: if itemsProp is provided, we do not apply query filtering.
+    if (itemsProp) return base;
 
     if (!q) return base;
 
@@ -42,10 +49,15 @@ export default function GlyphGrid({
       const unicode = (g.unicode ?? "").toLowerCase();
 
       if (q.length <= 2) {
+        const startsWord = (s: string) =>
+          s
+            .split(/[\s-_]+/)
+            .some((part) => part.startsWith(q));
+
         return (
           symbol === q ||
-          name.startsWith(q) ||
-          html.startsWith(q) ||
+          startsWord(name) ||
+          startsWord(html) ||
           unicode.startsWith(q)
         );
       }
@@ -64,10 +76,6 @@ export default function GlyphGrid({
       console.error("copy failed", err);
       showToast("Copy failed");
     }
-  };
-
-  const handleShowDetails = (glyph: Glyph) => {
-    console.log("details", glyph);
   };
 
   const [favUnicodes, setFavUnicodes] = useState<string[]>(() =>
@@ -93,8 +101,8 @@ export default function GlyphGrid({
   const favSet = useMemo(() => new Set(favUnicodes), [favUnicodes]);
 
   const handleToggleFavorite = (glyph: Glyph) => {
-    const next = toggleFavorite(glyph); // persists + dispatches event
-    setFavUnicodes(next); // immediate UI update in this grid
+    const next = toggleFavorite(glyph);
+    setFavUnicodes(next);
   };
 
   return (
@@ -105,7 +113,7 @@ export default function GlyphGrid({
           glyph={glyph}
           isFavorite={favSet.has(glyph.unicode)}
           onCopy={handleCopy}
-          onShowDetails={handleShowDetails}
+          onShowDetails={onShowDetails}
           onToggleFavorite={handleToggleFavorite}
         />
       ))}

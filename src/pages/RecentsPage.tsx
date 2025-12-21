@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-
 import GlyphGrid from "@/components/GlyphGrid";
+import GlyphDetailsModal from "@/components/GlyphDetailsModal";
 import UndoBar from "@/components/UndoBar";
 import Button from "@/components/Button";
 import type { Glyph } from "@/types/glyph";
@@ -11,6 +11,7 @@ import {
   readRecentUnicodes,
   writeRecentUnicodes,
 } from "@/utils/recents";
+import { readFavoriteUnicodes, toggleFavorite } from "@/utils/favorites";
 
 export default function RecentsPage() {
   // snapshot at mount; intentionally NOT reactive
@@ -18,6 +19,9 @@ export default function RecentsPage() {
     readRecentUnicodes()
   );
   const [undoSnapshot, setUndoSnapshot] = useState<string[] | null>(null);
+
+  // Details modal state (page-level)
+  const [detailsGlyph, setDetailsGlyph] = useState<Glyph | null>(null);
 
   const recents = useMemo(() => {
     const map = new Map((glyphsData as Glyph[]).map((g) => [g.unicode, g]));
@@ -47,6 +51,26 @@ export default function RecentsPage() {
 
   const handleDismiss = () => {
     setUndoSnapshot(null);
+  };
+
+  // Favorites state for modal star (local snapshot + events, like GlyphGrid does)
+  const [favUnicodes, setFavUnicodes] = useState<string[]>(() =>
+    readFavoriteUnicodes()
+  );
+
+  const favSet = useMemo(() => new Set(favUnicodes), [favUnicodes]);
+
+  const handleToggleFavorite = (glyph: Glyph) => {
+    const next = toggleFavorite(glyph);
+    setFavUnicodes(next);
+  };
+
+  const handleShowDetails = (glyph: Glyph) => {
+    setDetailsGlyph(glyph);
+  };
+
+  const handleCloseDetails = () => {
+    setDetailsGlyph(null);
   };
 
   return (
@@ -95,8 +119,16 @@ export default function RecentsPage() {
             </Button>
           </div>
         ) : (
-          <GlyphGrid items={recents} category="All" />
+          <GlyphGrid items={recents} category="All" onShowDetails={handleShowDetails} />
         )}
+
+        <GlyphDetailsModal
+          isOpen={Boolean(detailsGlyph)}
+          glyph={detailsGlyph}
+          isFavorite={detailsGlyph ? favSet.has(detailsGlyph.unicode) : false}
+          onToggleFavorite={handleToggleFavorite}
+          onClose={handleCloseDetails}
+        />
       </div>
     </section>
   );

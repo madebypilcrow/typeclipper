@@ -4,4 +4,5 @@ export type Glyph = {
   category: string;
   unicode: string;
   html: string;
+  description?: string;
 };

@@ -1,0 +1,165 @@
+@use "tokens" as *;
+
+.glyph-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.glyph-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glyph-modal__dialog {
+  width: min(680px, calc(100vw - 24px));
+  background: var(--gray-90);
+  color: var(--gray-10, #111);
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  outline: none;
+}
+
+.glyph-modal__dialog.is-sheet {
+  width: min(720px, calc(100vw - 24px));
+  margin: 0 12px 12px;
+  align-self: flex-end;
+  border-radius: 28px;
+}
+
+.glyph-modal__dialog.is-centered {
+  border-radius: 24px;
+}
+
+.glyph-modal__header {
+  position: relative;
+  padding: 18px 18px 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.glyph-modal__close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.glyph-modal__title {
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.glyph-modal__symbol {
+  font-size: 30px;
+  opacity: 0.85;
+}
+
+.glyph-modal__name {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.glyph-modal__copied {
+  margin-left: 8px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.glyph-modal__favorite {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  opacity: 0.9;
+}
+
+.glyph-modal__rows {
+  padding: 0 18px 8px;
+}
+
+.glyph-modal__row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.glyph-modal__label {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.glyph-modal__value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.glyph-modal__chip {
+  border: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.08);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  cursor: pointer;
+}
+
+.glyph-modal__inline-ok {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.glyph-modal__link {
+  border: 0;
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.glyph-modal__description {
+  padding: 14px 18px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+@media (max-width: 520px) {
+  .glyph-modal__row {
+    grid-template-columns: 1fr;
+  }
+  .glyph-modal__value {
+    justify-content: flex-start;
+  }
+  .glyph-modal__name {
+    font-size: 28px;
+  }
+}

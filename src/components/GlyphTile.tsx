@@ -50,7 +50,7 @@ export default function GlyphTile({
   };
 
   const handlePointerDown = (e: React.PointerEvent) => {
-    // Only long-press on touch (or pen). Avoid desktop mouse.
+    // Long-press only on touch (or pen). Avoid desktop mouse.
     if (hoverCapable || e.pointerType === "mouse") return;
 
     longPressFiredRef.current = false;
@@ -59,7 +59,9 @@ export default function GlyphTile({
     clearTimer();
     timerRef.current = window.setTimeout(() => {
       longPressFiredRef.current = true;
-      onToggleFavorite(glyph);
+
+      // Mobile: long-press opens details (bottom sheet)
+      onShowDetails(glyph);
 
       // Optional: tactile feedback on supported devices
       navigator.vibrate?.(12);
@@ -82,7 +84,7 @@ export default function GlyphTile({
   };
 
   const handleMainClick = (e: React.MouseEvent) => {
-    // If a long-press already toggled favorite, suppress the click action (copy).
+    // If a long-press already opened details, suppress the click action (copy).
     if (longPressFiredRef.current) {
       e.preventDefault();
       e.stopPropagation();
@@ -96,6 +98,7 @@ export default function GlyphTile({
     <div
       className={`glyph-tile ${className}`}
       data-category={glyph.category}
+      data-touch={!hoverCapable}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUpOrCancel}
@@ -124,7 +127,7 @@ export default function GlyphTile({
         aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
         onClick={(e) => {
           e.stopPropagation();
-          onToggleFavorite(glyph); // toggles on/off
+          onToggleFavorite(glyph);
         }}
       >
         <svg
@@ -138,7 +141,7 @@ export default function GlyphTile({
         </svg>
       </button>
 
-      {/* DETAILS */}
+      {/* DETAILS (desktop + explicit affordance everywhere) */}
       <button
         type="button"
         className="glyph-tile__details"

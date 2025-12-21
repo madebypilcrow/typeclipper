@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import GlyphGrid from "@/components/GlyphGrid";
+import GlyphDetailsModal from "@/components/GlyphDetailsModal";
 import UndoBar from "@/components/UndoBar";
 import Button from "@/components/Button";
 import type { Glyph } from "@/types/glyph";
@@ -9,6 +10,7 @@ import glyphsData from "@/data/glyphs.json";
 import {
   clearFavorites,
   readFavoriteUnicodes,
+  toggleFavorite,
   writeFavoriteUnicodes,
 } from "@/utils/favorites";
 import "@/styles/emptyState.scss";
@@ -21,8 +23,13 @@ export default function FavoritesPage() {
   );
   const [undoSnapshot, setUndoSnapshot] = useState<string[] | null>(null);
 
+  // Details modal state (page-level)
+  const [detailsGlyph, setDetailsGlyph] = useState<Glyph | null>(null);
+
   // empty-state animation state
-  const [showEmpty, setShowEmpty] = useState(() => readFavoriteUnicodes().length === 0);
+  const [showEmpty, setShowEmpty] = useState(
+    () => readFavoriteUnicodes().length === 0
+  );
   const [emptyEntering, setEmptyEntering] = useState(false);
   const [emptyLeaving, setEmptyLeaving] = useState(false);
 
@@ -78,6 +85,9 @@ export default function FavoritesPage() {
     setFavUnicodes([]);
 
     setUndoSnapshot(snapshot.length ? snapshot : null);
+
+    // If modal is open, close it (its glyph may no longer be favorited)
+    setDetailsGlyph(null);
   };
 
   const handleUndo = () => {
@@ -87,6 +97,24 @@ export default function FavoritesPage() {
 
   const handleDismiss = () => {
     setUndoSnapshot(null);
+  };
+
+  const handleShowDetails = (glyph: Glyph) => {
+    setDetailsGlyph(glyph);
+  };
+
+  const handleCloseDetails = () => {
+    setDetailsGlyph(null);
+  };
+
+  const handleToggleFavorite = (glyph: Glyph) => {
+    const next = toggleFavorite(glyph);
+    setFavUnicodes(next);
+
+    // If user unfavorites from within the modal while on Favorites page,
+    // close the modal to avoid showing a "non-favorite" item in this context.
+    const isNowFavorite = next.includes(glyph.unicode);
+    if (!isNowFavorite) setDetailsGlyph(null);
   };
 
   return (
@@ -146,8 +174,16 @@ export default function FavoritesPage() {
             </Button>
           </div>
         ) : (
-          <GlyphGrid items={favorites} category="All" />
+          <GlyphGrid items={favorites} category="All" onShowDetails={handleShowDetails} />
         )}
+
+        <GlyphDetailsModal
+          isOpen={Boolean(detailsGlyph)}
+          glyph={detailsGlyph}
+          isFavorite={detailsGlyph ? favUnicodes.includes(detailsGlyph.unicode) : false}
+          onToggleFavorite={handleToggleFavorite}
+          onClose={handleCloseDetails}
+        />
       </div>
     </section>
   );
