@@ -1,5 +1,5 @@
 // timing
-export const LONG_PRESS_MS = 450;
+export const LONG_PRESS_MS = 420;
 export const FEEDBACK_MS = 900;
 
 // layout

@@ -7,8 +7,7 @@ import SearchControls from "@/components/SearchControls";
 import { readFavoriteUnicodes, toggleFavorite } from "@/utils/favorites";
 
 export default function GlyphsPage() {
-  const category: string | "All" = "All";
-  const title = category === "All" ? "All Characters" : category;
+  const title = "All Characters";
 
   const [detailsGlyph, setDetailsGlyph] = useState<Glyph | null>(null);
 
@@ -57,7 +56,7 @@ export default function GlyphsPage() {
             </h1>
           </div>
 
-          <GlyphGrid category={category} onShowDetails={handleShowDetails} />
+          <GlyphGrid category="All" onShowDetails={handleShowDetails} />
         </div>
       </section>
 

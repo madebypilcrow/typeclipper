@@ -18,8 +18,7 @@
     "types": ["vite/client"],
 
     /* Path alias + JSON imports */
-    "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] },
+    "paths": { "@/*": ["./src/*"] },
     "resolveJsonModule": true,
 
     /* Linting */

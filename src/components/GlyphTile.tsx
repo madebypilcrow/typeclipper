@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Glyph } from "@/types/glyph";
+import { LONG_PRESS_MS } from "@/utils/constants";
 import "@/styles/glyphTile.scss";
 
 type Props = {
@@ -10,8 +11,6 @@ type Props = {
   onToggleFavorite: (g: Glyph) => void;
   className?: string;
 };
-
-const LONGPRESS_MS = 420;
 
 const STAR_FILLED =
   "M480-272 312.5-171q-10.5 6.5-21.75 5.5T271-173q-8.5-6.5-13-16.5t-1.5-22L301-402 153-530q-9.5-8.5-12-19.25t1-20.75q3.5-10 11.75-17t20.75-8.5l195-17 76-179.5q5-11.5 14.5-17t20-5.5q10.5 0 20 5.5t14.5 17l76 179.5 195 17q12.5 1.5 20.75 8.5T818-570q3.5 10 1 20.75T807-530L659-402l44.5 190.5q3 12-1.5 22T689-173q-8.5 6.5-19.75 7.5T647.5-171L480-272Z";
@@ -65,7 +64,7 @@ export default function GlyphTile({
 
       // Optional: tactile feedback on supported devices
       navigator.vibrate?.(12);
-    }, LONGPRESS_MS);
+    }, LONG_PRESS_MS);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
